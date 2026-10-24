@@ -1,0 +1,66 @@
+.platform { padding: clamp(90px, 10vw, 192px) 0 clamp(90px, 12.3vw, 237px); background: #fff; }
+.platform__title { text-align: center; max-width: 1471px; margin-inline: auto; text-wrap: balance; }
+
+/* Stacking deck: each slot sticks a little lower than the one before, so the
+   next card slides over it and the previous cards' top edges stay visible. */
+.platform__stack { margin-top: clamp(56px, 5.6vw, 108px); }
+.platform__slot { --dim: 0; position: relative; will-change: transform; }
+.platform__slot + .platform__slot { margin-top: clamp(40px, 4.2vw, 80px); }
+.platform__slot::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  border-radius: clamp(36px, 3.54vw, 67.9px); background: #0d0d0d; opacity: var(--dim);
+}
+@media (min-width: 1101px) and (min-height: 700px) {
+  /* margin-bottom mirrors the top offset so the deck leaves with its stagger intact
+     (sticky boxes are clamped by their margin box against the end of the stack). */
+  .platform__slot {
+    position: sticky; top: calc(var(--header-h) + 24px + var(--i) * 40px);
+    margin-bottom: calc((var(--n) - 1 - var(--i)) * 40px);
+  }
+  /* Hold space: sticky slots only stay pinned while the stack is still on screen,
+     so this gives the last card the same pause as the others before the deck leaves. */
+  .platform__stack::after { content: ''; display: block; height: var(--stack-hold, 45vh); }
+}
+
+.platform__card {
+  position: relative;
+  will-change: transform;
+  display: grid;
+  grid-template-columns: minmax(0, 655fr) minmax(0, 766fr);
+  gap: clamp(24px, 1.5vw, 29px);
+  padding: clamp(10px, 0.73vw, 14px) clamp(10px, 0.83vw, 16px);
+  border-radius: clamp(36px, 3.54vw, 67.9px);
+  background: #fff; border: 1px solid #f0f0f0;
+  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+}
+.platform__media { overflow: hidden; border-radius: clamp(28px, 3vw, 57.9px); aspect-ratio: 655 / 632; }
+.platform__media img { width: 100%; height: 100%; object-fit: cover; object-position: 33% 50%; transition: scale 1.4s var(--ease-out); }
+.platform__card:hover .platform__media img { scale: 1.04; }
+
+.platform__body { padding: clamp(16px, 1.6vw, 30px) clamp(16px, 1.7vw, 33px) clamp(20px, 2vw, 40px) 0; }
+.platform__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
+.platform__card-title { font-family: var(--ff-display); font-weight: 600; font-size: var(--fs-h3); line-height: 1.1; color: #000; padding-top: 2px; }
+.platform__text { margin-top: clamp(14px, 1.2vw, 18px); font-size: var(--fs-body); line-height: 1.71; letter-spacing: -0.023em; max-width: 710px; }
+.platform__kicker {
+  display: flex; align-items: center; gap: 8px; margin-top: clamp(22px, 2.1vw, 38px);
+  font-weight: 500; font-size: clamp(1.15rem, 1rem + 0.3vw, 1.524rem); line-height: 1.26; letter-spacing: -0.017em; color: var(--c-green);
+}
+.platform__features {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(20px, 1.3vw, 24px); row-gap: clamp(18px, 1.3vw, 24px);
+  margin-top: clamp(16px, 1.2vw, 20px);
+}
+.feature { display: flex; gap: 12px; }
+.feature__icon { flex: none; margin-top: 7px; color: var(--c-lime); }
+.feature__title { font-family: var(--ff-body); font-weight: 500; font-size: var(--fs-body); line-height: 1.71; letter-spacing: -0.023em; color: var(--c-forest); }
+.feature__text { margin-top: 6px; font-size: var(--fs-body); line-height: 1.33; letter-spacing: -0.023em; color: var(--c-body); max-width: 341px; }
+
+@media (max-width: 1100px) {
+  .platform__card { grid-template-columns: minmax(0, 1fr); }
+  .platform__media { aspect-ratio: 16 / 10; }
+  .platform__body { padding: 8px clamp(12px, 3vw, 24px) 28px; }
+}
+@media (max-width: 600px) {
+  .platform__features { grid-template-columns: minmax(0, 1fr); }
+  .platform__head .round-arrow { display: none; }
+}

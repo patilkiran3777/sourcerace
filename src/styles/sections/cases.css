@@ -1,0 +1,42 @@
+/* Track that starts on the container edge and bleeds off the right of the viewport */
+.bleed-track {
+  --edge: max(var(--gutter), calc((100vw - var(--container)) / 2));
+  display: flex; gap: clamp(16px, 1.56vw, 30px);
+  overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--edge);
+  padding: 8px var(--edge) 24px;
+  scrollbar-width: none; overscroll-behavior-x: contain;
+}
+.bleed-track::-webkit-scrollbar { display: none; }
+.bleed-track > * { scroll-snap-align: start; flex: none; }
+.bleed-track:focus-visible { outline-offset: -4px; }
+
+.cases { padding: clamp(90px, 8.1vw, 156px) 0 clamp(80px, 9vw, 170px); background: linear-gradient(180deg, #f9ffe0 0%, #fff 100%); }
+.cases__head { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.cases__title { color: #000; }
+.cases__nav { display: flex; gap: 15px; }
+.cases__track { margin-top: clamp(36px, 3.3vw, 64px); }
+
+.case {
+  display: grid; grid-template-columns: minmax(0, 327fr) minmax(0, 677fr);
+  width: min(1004px, 86vw); min-height: clamp(300px, 19.7vw, 378px);
+  background: #fff; border: 1px solid var(--c-line); border-radius: var(--r-card);
+  transition: box-shadow 0.6s var(--ease-out), translate 0.6s var(--ease-out);
+}
+.case:hover { box-shadow: 0 40px 70px -45px rgba(0, 25, 15, 0.4); translate: 0 -4px; }
+.case__logo {
+  display: grid; place-items: center; margin-block: 19px; padding: clamp(16px, 2vw, 40px);
+  border-right: 1px solid var(--c-line);
+}
+.case__logo img { max-width: min(225px, 100%); max-height: 258px; width: 100%; height: auto; object-fit: contain; transition: scale 0.8s var(--ease-out); }
+.case:hover .case__logo img { scale: 1.06; }
+.case__body { display: flex; flex-direction: column; padding: clamp(28px, 1.98vw, 38px) clamp(24px, 2.6vw, 50px) clamp(28px, 2.2vw, 42px) clamp(24px, 1.72vw, 33px); }
+.case__title { font-family: var(--ff-display); font-weight: 500; font-size: clamp(1.15rem, 1rem + 0.4vw, 1.5rem); line-height: 1.5; color: #000; max-width: 552px; }
+.case__text { margin-top: clamp(12px, 0.8vw, 15px); font-size: var(--fs-body); line-height: 1.61; letter-spacing: -0.024em; color: var(--c-body); max-width: 592px; }
+.case__link { margin-top: auto; padding-top: 24px; }
+
+@media (max-width: 760px) {
+  .case { grid-template-columns: minmax(0, 1fr); }
+  .case__logo { border-right: 0; border-bottom: 1px solid var(--c-line); margin: 0 20px; padding: 28px 0 20px; }
+  .case__logo img { max-height: 140px; width: auto; }
+  .cases__head { flex-wrap: wrap; }
+}

@@ -1,0 +1,104 @@
+.loc { background: var(--c-cream); padding: clamp(80px, 7.5vw, 144px) 0 clamp(80px, 6vw, 120px); overflow: hidden; }
+
+.loc__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px 40px; flex-wrap: wrap; }
+.loc__title { line-height: 1.2; }
+
+/* Office / partner switch */
+.loc__tabs { position: relative; isolation: isolate; display: inline-flex; gap: 4px; padding: 5px; border-radius: 999px; background: #fff; box-shadow: 0 0 0 1px var(--c-line-soft), 0 16px 32px -24px rgba(0, 25, 15, 0.35); }
+/* Shared active background; JS sets --pill-x / --pill-w from the selected tab. */
+.loc__tabs-pill {
+  position: absolute; z-index: -1; top: 5px; bottom: 5px; left: 0;
+  width: var(--pill-w, 0); transform: translateX(var(--pill-x, 0));
+  border-radius: 999px; background: var(--c-forest);
+}
+.loc__tabs.is-ready .loc__tabs-pill { transition: transform 0.6s cubic-bezier(0.65, 0, 0.2, 1.15), width 0.6s cubic-bezier(0.65, 0, 0.2, 1.15); }
+@media (prefers-reduced-motion: reduce) { .loc__tabs.is-ready .loc__tabs-pill { transition: none; } }
+.loc__tab {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 10px; padding: 12px clamp(16px, 1.3vw, 24px); border-radius: 999px;
+  font-family: var(--ff-display); font-weight: 500; font-size: clamp(0.88rem, 0.8rem + 0.2vw, 1rem); color: var(--c-ink-3);
+  transition: color 0.4s var(--ease-out) 0.1s;
+}
+.loc__tab:hover { color: var(--c-green-deep); }
+.loc__tab.is-active { color: #fff; }
+.loc__count {
+  display: grid; place-items: center; min-width: 24px; height: 24px; padding: 0 6px; border-radius: 999px;
+  font-size: 0.78rem; font-weight: 600; background: var(--c-cream); color: var(--c-green-deep);
+}
+.loc__count { transition: background 0.4s var(--ease-out) 0.1s, color 0.4s var(--ease-out) 0.1s; }
+.loc__tab.is-active .loc__count { background: var(--c-lime); color: var(--c-forest); }
+
+.loc__grid {
+  display: grid; grid-template-columns: minmax(0, 380fr) minmax(0, 1060fr);
+  gap: clamp(20px, 2vw, 36px); align-items: stretch; margin-top: clamp(28px, 2.6vw, 48px);
+}
+
+/* Location list (doubles as the map legend) */
+.loc__list { display: grid; gap: 8px; }
+.loc__list--partners { gap: 6px; }
+.loc__list--partners .loc__item { padding-block: 9px; }
+.loc__item {
+  --loc: var(--c-green);
+  position: relative; display: flex; align-items: center; gap: 14px; height: 100%;
+  padding: 12px 16px 12px 12px; border-radius: 18px; background: #fff;
+  box-shadow: 0 0 0 1px var(--c-line-soft); outline: none; color: var(--c-ink-3);
+  transition: box-shadow 0.35s var(--ease-out), transform 0.35s var(--ease-out);
+}
+.loc__list--offices .loc__item { padding: 16px 18px 16px 14px; }
+.loc__item.is-hot, .loc__item:focus-visible {
+  box-shadow: 0 0 0 2px var(--loc), 0 18px 36px -24px rgba(0, 25, 15, 0.45); transform: translateX(4px);
+}
+.loc__flag { flex: none; display: block; width: 36px; aspect-ratio: 3 / 2; border-radius: 4px; overflow: hidden; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08); }
+.loc__flag svg { display: block; width: 100%; height: 100%; }
+.loc__list--offices .loc__flag { width: 44px; }
+.loc__label { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.loc__name { font-family: var(--ff-display); font-weight: 600; font-size: clamp(0.88rem, 0.8rem + 0.2vw, 1.02rem); line-height: 1.2; }
+.loc__list--partners .loc__name { font-weight: 500; font-size: 0.9rem; }
+.loc__note { font-size: 0.8rem; color: var(--c-body); }
+.loc__swatch { flex: none; width: 12px; height: 12px; border-radius: 50%; background: var(--loc); box-shadow: 0 0 0 3px color-mix(in srgb, var(--loc) 22%, transparent); }
+.loc__go { flex: none; color: var(--c-muted); transition: color 0.3s, transform 0.4s var(--ease-out); }
+.loc__item.is-hot .loc__go, .loc__item:focus-visible .loc__go { color: var(--loc); transform: translate(2px, -2px); }
+
+/* Map */
+.loc__map-card { position: relative; overflow: hidden; }
+.loc__svg { display: block; width: 100%; height: auto; }
+.loc__geo { fill: #dfe7d0; stroke: #fff; stroke-width: 0.5; transition: fill 0.6s var(--ease-out), opacity 0.35s; }
+.loc__geo.is-on { stroke-width: 0.8; }
+.loc__geo.is-dim { opacity: 0.4; }
+.loc__geo.is-link, .loc__pin--offices { cursor: pointer; }
+
+.loc__dot { fill: var(--loc); stroke: #fff; stroke-width: 2; transition: r 0.3s; }
+.loc__pin.is-hot .loc__dot { r: 8; }
+.loc__pin--partners .loc__dot { stroke-width: 1.5; }
+.loc__pin--partners.is-hot .loc__dot { r: 6; }
+.loc__pulse { fill: none; stroke: var(--loc); stroke-width: 1.5; transform-box: fill-box; transform-origin: center; animation: loc-pulse 2.4s var(--ease-out) infinite; }
+@keyframes loc-pulse { from { transform: scale(1); opacity: 0.9; } to { transform: scale(3.2); opacity: 0; } }
+
+.loc__tip rect { fill: var(--c-forest); }
+.loc__tip text { fill: #fff; font-family: var(--ff-display); font-size: 12px; font-weight: 500; }
+
+.loc__zoom {
+  position: absolute; top: clamp(12px, 1.2vw, 20px); right: clamp(12px, 1.2vw, 20px);
+  display: grid; gap: 4px; padding: 4px; border-radius: 14px; background: #fff; box-shadow: 0 0 0 1px var(--c-line-soft);
+}
+.loc__zoom button { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; color: var(--c-forest); transition: background 0.25s; }
+.loc__zoom button:hover { background: var(--c-cream); color: var(--c-green-deep); }
+.loc__hint {
+  position: absolute; left: clamp(14px, 1.4vw, 24px); bottom: clamp(12px, 1.2vw, 20px);
+  padding: 6px 12px; border-radius: 999px; background: rgba(255, 255, 255, 0.85);
+  font-size: 0.78rem; color: var(--c-body); pointer-events: none;
+}
+
+@media (max-width: 1100px) {
+  .loc__grid { grid-template-columns: minmax(0, 1fr); }
+  .loc__map-card { order: -1; }
+  .loc__list--offices, .loc__list--partners { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .loc__hint { display: none; }
+}
+@media (max-width: 560px) {
+  .loc__tabs { width: 100%; }
+  .loc__tab { flex: 1; justify-content: center; padding-inline: 10px; }
+  .loc__list--offices, .loc__list--partners { grid-template-columns: minmax(0, 1fr); }
+}

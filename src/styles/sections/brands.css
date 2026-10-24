@@ -1,0 +1,10 @@
+.brands { padding-top: clamp(8px, 1vw, 24px); }
+.brands__title { text-align: center; margin-bottom: clamp(20px, 1.4vw, 27px); padding-inline: var(--gutter); }
+.brands .marquee {
+  --marquee-gap: 20px;
+  padding: 2px 0 8px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+.brands .logo-tile { --tile-w: clamp(170px, 11.15vw, 214px); --tile-h: clamp(84px, 5.36vw, 103px); }
+@media (max-width: 600px) { .brands .logo-tile { --tile-w: 150px; --tile-h: 80px; --logo-w: 96px; --logo-h: 72px; } }

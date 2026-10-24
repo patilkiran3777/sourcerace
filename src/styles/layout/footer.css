@@ -1,0 +1,72 @@
+.footer { background: var(--c-footer); color: var(--c-footer-link); padding: clamp(56px, 4.2vw, 80px) 0 clamp(28px, 2vw, 40px); }
+.footer__head {
+  font-family: var(--ff-display); font-weight: 800; font-size: 1rem; line-height: 1.2; letter-spacing: 0.075em;
+  text-transform: uppercase; color: var(--c-footer-head);
+}
+.footer__top { display: grid; grid-template-columns: minmax(0, 685fr) minmax(0, 675fr); gap: clamp(32px, 6.1vw, 118px); }
+
+/* Newsletter */
+.newsletter { margin-top: 17px; }
+.newsletter__field {
+  display: flex; align-items: center; gap: 12px; height: clamp(68px, 4.4vw, 84px);
+  padding: 0 9px 0 clamp(20px, 1.6vw, 31px); border: 1px solid #666; border-radius: 64px;
+  transition: border-color var(--dur), box-shadow var(--dur);
+}
+.newsletter__field:focus-within { border-color: var(--c-lime); box-shadow: 0 0 0 4px rgba(192, 238, 17, 0.12); }
+.newsletter--error .newsletter__field { border-color: #ff7a6b; }
+.newsletter--success .newsletter__field { border-color: var(--c-green); }
+.newsletter input {
+  flex: 1; min-width: 0; height: 100%; border: 0; outline: 0; background: transparent; color: #fff;
+  font-family: var(--ff-body); font-size: var(--fs-body);
+}
+.newsletter input::placeholder { color: #fff; opacity: 1; }
+.newsletter input:focus::placeholder { opacity: 0.45; }
+.newsletter__submit { flex: none; min-width: clamp(130px, 8.7vw, 167px); }
+.newsletter__submit:disabled { opacity: 0.7; cursor: progress; }
+.newsletter__msg { min-height: 1.5em; margin-top: 10px; padding-left: 24px; font-size: 0.9rem; }
+.newsletter--error .newsletter__msg { color: #ff9a8e; }
+.newsletter--success .newsletter__msg { color: var(--c-lime); }
+.newsletter--loading .newsletter__msg { color: #aaa; }
+
+/* Social chips */
+.footer__social ul { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.footer__social a {
+  display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px; border-radius: 32px;
+  background: var(--c-footer-chip); color: #fff; font-size: 1rem; letter-spacing: -0.04em;
+  transition: background var(--dur), color var(--dur), translate 0.4s var(--ease-out);
+}
+.footer__social a:hover { background: var(--c-lime); color: var(--c-forest); translate: 0 -2px; }
+
+.footer__rule {
+  height: 0; margin: clamp(36px, 3vw, 58px) 0 clamp(36px, 2.75vw, 53px); border: 0;
+  border-top: 1px dashed rgba(202, 197, 197, 0.45);
+}
+.footer__rule--bottom { margin: clamp(32px, 2.6vw, 50px) 0 30px; }
+
+.footer__main { display: grid; grid-template-columns: minmax(0, 694fr) minmax(0, 714fr); gap: clamp(32px, 4vw, 80px); }
+.footer__logo { display: inline-block; filter: drop-shadow(0 0 0 transparent); }
+.footer__logo img { width: clamp(260px, 26.9vw, 517px); height: auto; transition: filter 0.6s; }
+.footer__logo:hover img { filter: brightness(1.25) saturate(1.2); }
+.footer__brand p { margin-top: 30px; max-width: 552px; font-family: var(--ff-display); font-weight: 300; font-size: 1rem; line-height: 1.5; }
+.footer__brand p + p { margin-top: 18px; }
+.footer__brand .btn { margin-top: 48px; height: 63px; }
+
+.footer__cols { display: grid; grid-template-columns: 284fr 172fr 172fr; gap: 43px; }
+.footer__col ul { margin-top: 16px; display: grid; gap: 10px; }
+.footer__col a {
+  position: relative; display: inline-block; font-family: var(--ff-display); font-weight: 300; font-size: 1rem; line-height: 1.5;
+  transition: color var(--dur-fast), transform 0.4s var(--ease-out);
+}
+.footer__col a:hover { color: #fff; transform: translateX(4px); }
+.footer__copy { text-align: center; font-size: 1rem; letter-spacing: -0.035em; color: #f4f4f4; }
+
+@media (max-width: 1100px) {
+  .footer__top, .footer__main { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 640px) {
+  .footer__cols { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
+  .footer__col:first-child { grid-column: 1 / -1; }
+  .newsletter__field { height: auto; flex-direction: column; align-items: stretch; padding: 8px; border-radius: 32px; }
+  .newsletter input { height: 52px; padding: 0 16px; }
+  .newsletter__submit { width: 100%; }
+}

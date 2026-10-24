@@ -1,0 +1,149 @@
+/* ---------- Pill button (Figma "Link") ---------- */
+.btn {
+  --btn-h: clamp(52px, 3.33vw, 64px);
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10.6px;
+  height: var(--btn-h);
+  padding: 0 clamp(22px, 1.46vw, 28px);
+  border-radius: 45px;
+  font-family: var(--ff-ui);
+  font-weight: 500;
+  font-size: var(--fs-btn);
+  line-height: 1;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: translate var(--dur) var(--ease-out), scale var(--dur-fast) var(--ease-out), box-shadow var(--dur) var(--ease-out), color var(--dur-fast), background-color var(--dur);
+}
+.btn:active { scale: 0.97; }
+
+.btn--primary { color: var(--c-forest-2); background: var(--grad-cta); }
+.btn--primary::before {
+  /* hover: the gradient flows across the pill */
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(90deg, var(--c-green) 0%, var(--c-lime) 100%);
+  opacity: 0; transition: opacity var(--dur) var(--ease-out);
+}
+.btn--primary::after {
+  /* light sheen */
+  content: ''; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; z-index: -1;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: skewX(-18deg); transition: left 0.75s var(--ease-out);
+}
+.btn--primary:hover { box-shadow: 0 14px 32px -12px rgba(55, 199, 55, 0.65); translate: 0 -2px; }
+.btn--primary:hover::before { opacity: 1; }
+.btn--primary:hover::after { left: 130%; }
+
+.btn--outline-light { color: #fff; border: 2px solid #fff; background: transparent; }
+.btn--outline-light:hover { background: #fff; color: var(--c-forest-2); translate: 0 -2px; }
+
+.btn--outline-gradient {
+  color: var(--c-green-text);
+  border: 2px solid transparent;
+  background: linear-gradient(var(--btn-fill, #fbfff0), var(--btn-fill, #fbfff0)) padding-box, var(--grad-cta-border) border-box;
+  min-width: clamp(180px, 13.1vw, 252px);
+}
+.btn--outline-gradient:hover { --btn-fill: #f1fccb; translate: 0 -2px; }
+
+.btn__icon { position: relative; width: 17px; height: 17px; overflow: hidden; flex: none; }
+.btn__icon svg { position: absolute; inset: 0; transition: transform 0.5s var(--ease-out); }
+.btn__icon svg:last-child { transform: translateX(-130%); }
+.btn:hover .btn__icon svg:first-child { transform: translateX(130%); }
+.btn:hover .btn__icon svg:last-child { transform: translateX(0); }
+
+/* ---------- Explore More pill with dark circle ---------- */
+.explore-pill {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: clamp(70px, 4.74vw, 91px);
+  padding: 3px 3px 3px clamp(22px, 1.6vw, 30px);
+  border-radius: 60px;
+  font-family: var(--ff-ui);
+  font-weight: 500;
+  font-size: clamp(1rem, 0.9rem + 0.25vw, 1.245rem);
+  text-transform: uppercase;
+  color: var(--c-forest-2);
+  overflow: hidden;
+  isolation: isolate;
+}
+.explore-pill--mint { background: #a2eb9a; }
+.explore-pill--lime { background: #cee386; }
+.explore-pill::before {
+  content: ''; position: absolute; z-index: -1; right: 3px; top: 50%;
+  width: calc(var(--dot) * 1px); height: calc(var(--dot) * 1px);
+  border-radius: 50%; background: #1b1b1b;
+  transform: translateY(-50%) scale(0); transform-origin: center;
+  transition: transform 0.6s var(--ease-in-out);
+  --dot: 85;
+}
+.explore-pill:hover::before { transform: translateY(-50%) scale(9); }
+.explore-pill__label { transition: color 0.35s var(--ease-out) 0.05s; }
+.explore-pill:hover .explore-pill__label { color: #fff; }
+.explore-pill__dot {
+  display: grid; place-items: center; flex: none;
+  width: clamp(62px, 4.43vw, 85px); aspect-ratio: 1; border-radius: 50%;
+  background: #1b1b1b; color: #a3cc52;
+}
+.explore-pill__dot svg { width: 45%; height: 45%; transition: transform 0.5s var(--ease-out); }
+.explore-pill:hover .explore-pill__dot svg { transform: rotate(45deg); color: var(--c-lime); }
+
+/* ---------- Round arrow pill (79×56) ---------- */
+.round-arrow {
+  display: inline-grid; place-items: center; flex: none;
+  width: clamp(64px, 4.1vw, 79px); height: clamp(46px, 2.92vw, 56px);
+  border-radius: 52px; border: 1.75px solid transparent; color: #000;
+  background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)) padding-box, var(--grad-cta-border) border-box;
+  transition: background var(--dur) var(--ease-out), transform var(--dur) var(--ease-out), opacity var(--dur-fast);
+}
+.round-arrow svg { transition: transform 0.45s var(--ease-out); }
+.round-arrow--prev svg { transform: scaleX(-1); }
+.round-arrow:hover { background: var(--grad-cta) padding-box, var(--grad-cta-border) border-box; }
+.round-arrow--next:hover svg { transform: translateX(4px); }
+.round-arrow--prev:hover svg { transform: scaleX(-1) translateX(4px); }
+.round-arrow:disabled { opacity: 0.35; cursor: default; background: linear-gradient(#fff, #fff) padding-box, var(--grad-cta-border) border-box; }
+.round-arrow:disabled svg { transform: scaleX(-1); }
+.round-arrow--next:disabled svg { transform: none; }
+
+/* ---------- Marquee ---------- */
+.marquee { overflow: hidden; }
+.marquee__track { display: flex; width: max-content; will-change: transform; }
+.marquee__list { display: flex; gap: var(--marquee-gap, 20px); padding-right: var(--marquee-gap, 20px); }
+.marquee__item { flex: none; }
+@media (prefers-reduced-motion: reduce) {
+  .marquee { overflow-x: auto; scrollbar-width: thin; }
+  .marquee__list[aria-hidden='true'] { display: none; }
+}
+
+/* Logo tile used by Trusted + Certifications */
+.logo-tile {
+  display: grid; place-items: center;
+  width: var(--tile-w, 214px); height: var(--tile-h, 103px);
+  background: #fff; border: 0.8px solid var(--c-line-soft); border-radius: var(--r-sm);
+  transition: border-color var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out), translate var(--dur) var(--ease-out);
+}
+.logo-tile img {
+  max-width: var(--logo-w, 126px); max-height: var(--logo-h, 100px); width: auto; height: auto;
+  object-fit: contain; filter: grayscale(0.15); transition: filter var(--dur), transform var(--dur) var(--ease-out);
+}
+.logo-tile:hover { border-color: #c9ef6d; box-shadow: 0 12px 30px -18px rgba(0, 25, 15, 0.35); translate: 0 -3px; }
+.logo-tile:hover img { filter: none; transform: scale(1.05); }
+
+/* Plus / minus icon */
+.pm-icon__v { transform-origin: center; transform-box: fill-box; transition: transform 0.4s var(--ease-out); }
+
+/* Shared card arrow link */
+.text-link {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--ff-ui); font-weight: 500; font-size: clamp(0.85rem, 0.8rem + 0.15vw, 0.95rem);
+  text-transform: uppercase; color: var(--c-green);
+}
+.text-link svg { transition: transform 0.45s var(--ease-out); }
+.text-link:hover svg { transform: translateX(6px); }

@@ -1,0 +1,77 @@
+/* Design tokens extracted from the Figma file (sourcetrace-mockup-v6, 1920px desktop). */
+:root {
+  /* Brand colours */
+  --c-lime: #c0ee11;
+  --c-green: #37c737;
+  --c-green-text: #42ca34;
+  --c-green-deep: #348735;
+  --c-green-olive: #98b81d;
+  --c-logo: #008000;
+  --c-forest: #00190f;        /* headings */
+  --c-forest-2: #0d251b;      /* button text */
+  --c-ink: #000000;
+  --c-ink-2: #1d1d1d;
+  --c-ink-3: #212121;
+  --c-body: #59625a;          /* body copy on light */
+  --c-body-dark: #838d84;     /* body copy on dark */
+  --c-heading-dark: #bfbfbf;
+  --c-muted: #9c9c9c;
+  --c-white: #ffffff;
+  --c-offwhite: #fbfbfa;
+  --c-header-bg: rgba(251, 249, 246, 0.86);
+  --c-cream: #f8fde7;
+  --c-line: #d5d5d5;
+  --c-line-soft: #e3e5db;
+  --c-line-lime: #e4f5a9;
+  --c-dark: #1a1a1a;
+  --c-dark-card: #2a2828;
+  --c-footer: #161616;
+  --c-footer-chip: #1c2125;
+  --c-footer-head: #a9cf54;
+  --c-footer-link: #cac5c5;
+
+  --grad-cta: linear-gradient(90deg, var(--c-lime) 0%, var(--c-green) 100%);
+  --grad-cta-border: linear-gradient(90deg, #44ca33 0%, var(--c-lime) 100%);
+  --grad-band: linear-gradient(180deg, #fdfff8 0%, #f6ffe0 100%);
+
+  /* Typography */
+  --ff-display: 'Poppins', system-ui, sans-serif;
+  --ff-body: 'Montserrat', system-ui, sans-serif;
+  --ff-stat: 'Cal Sans', 'Poppins', system-ui, sans-serif;
+  /* Figma uses SF Pro (not licensed for web embedding) — Inter is the closest open substitute. */
+  --ff-ui: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+
+  --fs-h1: clamp(2.4rem, 1.2rem + 4.6vw, 6.25rem);      /* 100px */
+  --fs-h2: clamp(2rem, 0.9rem + 3.1vw, 4.375rem);       /* 70px  */
+  --fs-h3: clamp(1.4rem, 1rem + 0.8vw, 2.18rem);        /* 35px  */
+  --fs-card-title: clamp(1.35rem, 1rem + 0.7vw, 1.81rem); /* 29px */
+  --fs-stat: clamp(2.2rem, 1.6rem + 1.3vw, 3.13rem);    /* 50px  */
+  --fs-lead: clamp(1rem, 0.8rem + 0.6vw, 1.39rem);      /* 22px  */
+  --fs-body-lg: clamp(1rem, 0.85rem + 0.4vw, 1.25rem);  /* 20px  */
+  --fs-body: clamp(0.95rem, 0.85rem + 0.25vw, 1.125rem);/* 18px  */
+  --fs-nav: clamp(0.94rem, 1.04vw, 1.25rem);            /* 20px  */
+  --fs-btn: clamp(0.95rem, 0.85rem + 0.25vw, 1.19rem);  /* 19px  */
+  --fs-eyebrow: clamp(1.05rem, 0.9rem + 0.35vw, 1.375rem); /* 22px */
+
+  /* Layout */
+  --container: 1480px;
+  --gutter: clamp(20px, 4vw, 40px);
+  --header-h: 101px;
+  --section-y: clamp(80px, 9vw, 170px);
+
+  --r-sm: 6.5px;
+  --r-md: 10px;
+  --r-card: clamp(32px, 3.6vw, 68.8px);
+  --r-img: clamp(28px, 2.6vw, 50px);
+  --r-pill: 999px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 0.25s;
+  --dur: 0.45s;
+}
+
+@media (max-width: 1180px) {
+  :root { --header-h: 76px; }
+}

@@ -1,0 +1,92 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--header-h) + 16px); }
+/* Lenis owns smooth scrolling when motion is allowed; native smooth anchors stay as the fallback. */
+@media (prefers-reduced-motion: no-preference) { html:not(.lenis) { scroll-behavior: smooth; } }
+
+body {
+  margin: 0;
+  font-family: var(--ff-body);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--c-body);
+  background: var(--c-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, p, ul, ol, figure, blockquote { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+img, svg, video { display: block; max-width: 100%; }
+img { height: auto; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+input { font: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--c-green);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.container {
+  width: 100%;
+  max-width: calc(var(--container) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+.skip-link {
+  position: fixed; left: 16px; top: -60px; z-index: 200;
+  padding: 12px 20px; border-radius: var(--r-pill);
+  background: var(--c-forest); color: #fff; font-weight: 600;
+  transition: top var(--dur-fast) var(--ease-out);
+}
+.skip-link:focus { top: 16px; }
+
+.h2 {
+  font-family: var(--ff-display);
+  font-weight: 600;
+  font-size: var(--fs-h2);
+  line-height: 1.215;
+  color: var(--c-forest);
+  letter-spacing: -0.005em;
+}
+.h2--medium { font-weight: 500; }
+.split-accent { color: var(--c-green-text); }
+
+.eyebrow {
+  font-family: var(--ff-body);
+  font-weight: 500;
+  font-size: var(--fs-eyebrow);
+  line-height: 1.45;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--c-ink);
+}
+
+.body-lg { font-size: var(--fs-body-lg); line-height: 1.59; color: var(--c-body); }
+
+/* Split-text masks (see ui/SplitText.jsx) */
+.split-line { display: block; }
+.split-word { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+.split-word > span { display: inline-block; will-change: transform; }
+
+/* Light gradient band shared by Trusted + First mile (Figma "Rectangle 32") */
+.light-band { background: var(--grad-band); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

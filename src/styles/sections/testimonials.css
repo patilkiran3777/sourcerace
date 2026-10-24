@@ -1,0 +1,34 @@
+.quotes { padding: clamp(80px, 8.2vw, 157px) 0 clamp(80px, 6.8vw, 131px); background: #fff; }
+.quotes__title { text-align: center; text-wrap: balance; }
+.quotes__track { margin-top: clamp(40px, 3.3vw, 63px); gap: clamp(16px, 1.46vw, 28px); }
+
+.quote {
+  position: relative; width: min(475px, 84vw); min-height: clamp(460px, 27.8vw, 533px);
+  border-radius: var(--r-card); background: var(--c-offwhite); border: 1px solid var(--c-line);
+  transition: border-color 0.5s var(--ease-out), box-shadow 0.6s var(--ease-out), translate 0.6s var(--ease-out);
+}
+.quote:hover { border-color: #cde88a; box-shadow: 0 40px 70px -50px rgba(0, 25, 15, 0.45); translate: 0 -4px; }
+.quote figure { min-height: 100%; display: flex; flex-direction: column; padding: clamp(36px, 2.55vw, 49px) 18px 22px; }
+.quote__mark { position: absolute; left: clamp(26px, 2.6vw, 100px); left: 21%; top: clamp(36px, 2.55vw, 49px); width: clamp(56px, 3.9vw, 75px); height: auto; transition: transform 0.6s var(--ease-out); }
+.quote:hover .quote__mark { transform: translateY(-6px) rotate(-4deg); }
+.quote__text {
+  position: relative; margin: clamp(22px, 1.65vw, 32px) 15px 0;
+  font-family: var(--ff-display); font-style: italic; font-weight: 400; font-size: clamp(1rem, 0.9rem + 0.25vw, 1.125rem); line-height: 1.5; color: #5e5e5e;
+}
+.quote__author {
+  display: flex; align-items: flex-start; gap: clamp(16px, 1.5vw, 29px);
+  margin-top: auto; padding: 23px 0 0 21px; border-top: 1px solid #dededd;
+}
+.quote__logo { display: grid; place-items: center; flex: none; width: clamp(80px, 5.16vw, 99px); aspect-ratio: 1; border-radius: var(--r-md); background: #fff; padding: 6px; }
+.quote__logo img { width: 100%; height: auto; max-height: 82px; object-fit: contain; }
+.quote__name { display: block; font-family: var(--ff-display); font-weight: 600; font-size: clamp(1rem, 0.9rem + 0.25vw, 1.125rem); line-height: 1.5; color: #424242; }
+.quote__role { display: block; margin-top: 5px; font-family: var(--ff-display); font-weight: 300; font-size: 0.875rem; line-height: 1.5; color: var(--c-muted); max-width: 267px; }
+
+.quotes__dots { display: flex; justify-content: center; gap: 4.5px; margin-top: clamp(28px, 2.2vw, 30px); }
+.quotes__dots button {
+  position: relative; width: 18px; height: 9px; border-radius: 4px; background: #d7d7d7;
+  transition: width 0.5s var(--ease-out), background 0.4s;
+}
+.quotes__dots button::after { content: ''; position: absolute; inset: -12px -3px; } /* bigger hit area */
+.quotes__dots button.is-active { width: 28px; background: var(--c-green); }
+.quotes__dots button:hover:not(.is-active) { background: #bfe47a; }
