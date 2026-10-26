@@ -26,6 +26,33 @@ export const ROUTES = {
   agriculture: '/agriculture-solutions',
 };
 
+/* Floating WhatsApp chat button. `phone` is digits only, with country code
+   (wa.me format). PLACEHOLDER: replace with the real SourceTrace number. */
+export const whatsapp = {
+  phone: '910000000000',
+  message: 'Hi SourceTrace, I would like to know more about your solutions.',
+  label: 'Chat with us',
+  placeholder: true,
+};
+
+/* "Requesting for meeting" tab → Calendly popup. PLACEHOLDER: replace `url`
+   with the real SourceTrace Calendly scheduling link. */
+export const meeting = {
+  label: 'Requesting for meeting',
+  calendlyUrl: 'https://calendly.com/REPLACE-WITH-SOURCETRACE-LINK',
+  placeholder: true,
+};
+
+/* Site versions (client: "India/Global" first, "Africa" after Global is complete).
+   The current site is India/Global. Give Africa an `href` and drop `soon` once it exists. */
+export const regions = {
+  current: 'global',
+  items: [
+    { id: 'global', label: 'India / Global', short: 'Global', href: '/' },
+    { id: 'africa', label: 'Africa', soon: true },
+  ],
+};
+
 export const navigation = [
   { label: 'Home', href: '/' },
   {
@@ -111,12 +138,14 @@ export const stats = [
   },
 ];
 
-/* Social URLs were not in the design — replace with the real profiles. */
+/* Profiles copied from the https://sourcetrace.com/ footer (26 Oct 2026); the live
+   site has no Instagram. `card: true` = shown on the hero "Connect With Us" card (room for 3). */
 export const social = [
-  { id: 'facebook', label: 'Facebook', href: 'https://www.facebook.com/' },
-  { id: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/' },
-  { id: 'x', label: 'x.com', href: 'https://x.com/' },
-  { id: 'youtube', label: 'Youtube', href: 'https://www.youtube.com/' },
+  { id: 'linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/company/source-trace-systems/', card: true },
+  { id: 'facebook', label: 'Facebook', href: 'https://www.facebook.com/SourceTrace', card: true },
+  { id: 'x', label: 'X (Twitter)', href: 'https://twitter.com/SourceTraceSys' },
+  { id: 'youtube', label: 'YouTube', href: 'https://www.youtube.com/c/Sourcetracesystems', card: true },
+  { id: 'pinterest', label: 'Pinterest', href: 'https://www.pinterest.com/sourcetrace/' },
 ];
 
 export const trustedBrands = {

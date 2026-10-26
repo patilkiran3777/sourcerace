@@ -31,7 +31,7 @@ export default function ImpactStats() {
               <h2 className="stat-card__social-title">{s.title}</h2>
               <div className="stat-card__social-row">
                 <ul className="stat-card__icons">
-                  {social.filter((x) => x.id !== 'x').map((x) => (
+                  {social.filter((x) => x.card).map((x) => (
                     <li key={x.id}>
                       <a href={x.href} target="_blank" rel="noreferrer" aria-label={`SourceTrace on ${x.label}`}>
                         <SocialIcon id={x.id} size={20} />

@@ -99,7 +99,7 @@
 .mobile-menu__social { display: flex; gap: 10px; }
 .mobile-menu__social a { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--c-forest); color: #fff; }
 
-@media (max-width: 1180px) {
+@media (max-width: 1360px) { /* nav collapses to the burger (raised from 1180px when the region dropdown was added) */
   .nav { display: none; }
   .header__burger { display: block; }
   .header__cta { margin-left: auto; }
@@ -127,3 +127,58 @@
 .meeting-tab:hover { padding-right: 27px; filter: saturate(1.15); }
 .meeting-tab:hover svg { transform: rotate(90deg) translateX(4px); }
 @media (max-width: 767px) { .meeting-tab { display: none; } }
+
+/* Floating WhatsApp button: a circle that widens to show its label on hover/focus */
+.wa-btn {
+  position: fixed; right: clamp(16px, 1.6vw, 30px); bottom: clamp(16px, 1.6vw, 30px); z-index: 90;
+  display: flex; align-items: center; height: 60px; min-width: 60px; padding: 0 16px; border-radius: var(--r-pill);
+  background: #25d366; color: #fff;
+  box-shadow: 0 10px 28px -10px rgba(0, 25, 15, 0.55);
+  transition: filter var(--dur), box-shadow 0.45s var(--ease-out);
+}
+.wa-btn svg { flex: none; }
+.wa-btn__label {
+  max-width: 0; overflow: hidden; white-space: nowrap; opacity: 0;
+  font-family: var(--ff-ui); font-weight: 600; font-size: 0.95rem;
+  transition: max-width 0.45s var(--ease-out), margin 0.45s var(--ease-out), opacity 0.3s;
+}
+.wa-btn:hover, .wa-btn:focus-visible { filter: saturate(1.1); box-shadow: 0 14px 32px -10px rgba(0, 25, 15, 0.65); }
+.wa-btn:hover .wa-btn__label, .wa-btn:focus-visible .wa-btn__label { max-width: 140px; margin-left: 10px; opacity: 1; }
+@media (max-width: 767px) { .wa-btn { height: 54px; min-width: 54px; padding: 0 13px; } }
+
+/* Region (site version) dropdown, sits right before "Request a Demo" */
+.header__region { margin-left: auto; flex: none; }
+.header__region + .header__cta { margin-left: 0; }
+.region { position: relative; }
+.region__toggle {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: clamp(42px, 2.9vw, 52px); padding: 0 clamp(12px, 0.9vw, 16px);
+  border: 1px solid #dcdad5; border-radius: var(--r-pill); background: rgba(255, 255, 255, 0.6);
+  font-family: var(--ff-body); font-weight: 500; font-size: clamp(0.88rem, 0.9vw, 1.05rem); color: #2a2a2a; white-space: nowrap;
+  transition: border-color var(--dur-fast), color var(--dur-fast), background var(--dur-fast);
+}
+.region__toggle:hover, .region.is-open .region__toggle { border-color: #9bd85f; color: #209020; background: #fff; }
+.region__globe { flex: none; color: #209020; }
+.region.is-open .nav__chev { transform: rotate(180deg); color: #209020; }
+.region__panel { left: auto; right: 0; top: calc(100% + 10px); min-width: 240px; }
+.region__option {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 11px 14px; border-radius: 10px;
+  font-family: var(--ff-body); font-weight: 500; font-size: 0.95rem; color: #2a2a2a;
+}
+.region__panel a.region__option.is-current { color: var(--c-forest); background: #f3fcd8; }
+.region__panel a.region__option.is-current:hover { padding-left: 14px; }
+.region__option.is-disabled { color: #9c9c9c; cursor: not-allowed; }
+.region__soon {
+  padding: 3px 8px; border-radius: var(--r-pill); background: #f1f1ee;
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase; color: #8a8a85;
+}
+/* The desktop nav row is tight below ~1500px: drop the label, keep globe + chevron. */
+@media (max-width: 1500px) and (min-width: 1361px) {
+  .region__current { display: none; }
+  .region__toggle { gap: 6px; }
+}
+@media (max-width: 560px) {
+  .header__burger { margin-left: 0; }
+  .region__current { display: none; } /* globe + chevron only on phones */
+}

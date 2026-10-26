@@ -1,6 +1,7 @@
 import Header from './components/layout/Header.jsx';
 import Footer from './components/layout/Footer.jsx';
 import MeetingTab from './components/layout/MeetingTab.jsx';
+import WhatsAppButton from './components/layout/WhatsAppButton.jsx';
 import Home from './pages/Home.jsx';
 import AgricultureSolutions from './pages/AgricultureSolutions.jsx';
 import AgricultureOption2 from './pages/AgricultureOption2.jsx';
@@ -29,6 +30,7 @@ export default function App() {
       </main>
       <Footer />
       <MeetingTab />
+      <WhatsAppButton />
     </>
   );
 }

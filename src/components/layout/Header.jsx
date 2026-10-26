@@ -6,6 +6,7 @@ import Logo from './Logo.jsx';
 import { isActive } from '../../router.js';
 import Navigation from './Navigation.jsx';
 import MobileMenu from './MobileMenu.jsx';
+import RegionSwitcher from './RegionSwitcher.jsx';
 import { lockScroll } from '../../animations/smoothScroll.js';
 import '../../styles/layout/header.css';
 
@@ -18,7 +19,7 @@ export default function Header() {
     // Entrance
     const mm = gsap.matchMedia();
     mm.add(MQ.motion, () => {
-      gsap.from(ref.current.querySelectorAll('.header__logo, .nav__item, .header__cta, .header__burger'), {
+      gsap.from(ref.current.querySelectorAll('.header__logo, .nav__item, .header__region, .header__cta, .header__burger'), {
         y: -24, autoAlpha: 0, duration: 0.9, stagger: 0.05, delay: 0.1,
       });
     });
@@ -48,6 +49,7 @@ export default function Header() {
       <div className="header__inner">
         <Logo className="header__logo" />
         <Navigation items={items} />
+        <RegionSwitcher className="header__region" />
         <Button href={ROUTES.demo} className="header__cta">Request a Demo</Button>
         <button
           className="header__burger"
