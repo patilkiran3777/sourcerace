@@ -7,8 +7,10 @@ import { lockScroll } from '../../animations/smoothScroll.js';
  * Accessible video lightbox built on <dialog>. Set `youtubeId` in
  * src/data/content.js (experience.video.youtubeId) to enable playback.
  */
-export default function VideoModal({ open, onClose, youtubeId, title }) {
+export default function VideoModal({ open, onClose, youtubeId, title, start, end }) {
   const ref = useRef(null);
+  // Optional clip range in seconds (YouTube `start` / `end` player params).
+  const range = `${start ? `&start=${start}` : ''}${end ? `&end=${end}` : ''}`;
 
   useEffect(() => {
     const d = ref.current;
@@ -35,7 +37,7 @@ export default function VideoModal({ open, onClose, youtubeId, title }) {
       <div className="video-modal__frame">
         {open && youtubeId ? (
           <iframe
-            src={`https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&rel=0`}
+            src={`https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&rel=0${range}`}
             title={title}
             allow="autoplay; encrypted-media; picture-in-picture"
             allowFullScreen

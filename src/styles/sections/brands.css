@@ -8,3 +8,16 @@
 }
 .brands .logo-tile { --tile-w: clamp(170px, 11.15vw, 214px); --tile-h: clamp(84px, 5.36vw, 103px); }
 @media (max-width: 600px) { .brands .logo-tile { --tile-w: 150px; --tile-h: 80px; --logo-w: 96px; --logo-h: 72px; } }
+
+/* Logos sit in greyscale and come back to full colour on hover / keyboard focus */
+.brands .logo-tile img { filter: grayscale(1); opacity: 0.6; transition: filter 0.5s var(--ease-out), opacity 0.5s var(--ease-out), transform var(--dur) var(--ease-out); }
+.brands .logo-tile:hover img, .brands .logo-tile:focus-within img { filter: grayscale(0); opacity: 1; }
+
+/* Some logo files have a white background and are as tall as the tile, so on hover (scale 1.05)
+   they covered the bottom border. Draw the border on a layer above the logo and clip the logo. */
+.brands .logo-tile { position: relative; overflow: hidden; border-color: transparent; --logo-h: calc(var(--tile-h) - 12px); } /* tall logos fit inside the tile */
+.brands .logo-tile::after {
+  content: ''; position: absolute; inset: 0; border: 0.8px solid var(--c-line-soft); border-radius: inherit;
+  pointer-events: none; transition: border-color var(--dur) var(--ease-out);
+}
+.brands .logo-tile:hover::after { border-color: #c9ef6d; }

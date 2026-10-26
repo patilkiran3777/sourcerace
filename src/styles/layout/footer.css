@@ -65,6 +65,8 @@
   .footer__top, .footer__main { grid-template-columns: minmax(0, 1fr); }
   .footer__social ul { flex-wrap: wrap; }
 }
+/* room under the copyright line so the floating meeting + WhatsApp buttons don't cover it */
+@media (max-width: 767px) { .footer { padding-bottom: 150px; } }
 @media (max-width: 640px) {
   .footer__cols { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
   .footer__col:first-child { grid-column: 1 / -1; }

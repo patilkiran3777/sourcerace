@@ -1,4 +1,6 @@
-.certs { position: relative; background: #fff; }
+/* overflow-x: clip — the rail slides in from x:+60px; without this it widened the page
+   (sideways scroll / burger pushed off-screen on phones) until the reveal played. */
+.certs { position: relative; background: #fff; overflow-x: clip; }
 .certs__line { display: block; height: 1px; background: #e1fb7e; }
 .certs__inner {
   display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: clamp(32px, 4.5vw, 90px);

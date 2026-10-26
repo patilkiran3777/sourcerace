@@ -1,14 +1,12 @@
-import { useState } from 'react';
 import { experience } from '../../data/content.js';
 import Button from '../ui/Button.jsx';
 import SplitText from '../ui/SplitText.jsx';
-import { Leaf, YouTubePlay } from '../ui/Icons.jsx';
-import VideoModal from '../ui/VideoModal.jsx';
+import { Leaf } from '../ui/Icons.jsx';
+import InlineYouTube from '../ui/InlineYouTube.jsx';
 import useSectionReveal from '../../hooks/useSectionReveal.js';
 import '../../styles/sections/experience.css';
 
 export default function Experience() {
-  const [videoOpen, setVideoOpen] = useState(false);
   const ref = useSectionReveal();
   const { video } = experience;
 
@@ -31,15 +29,12 @@ export default function Experience() {
           </div>
         </div>
 
+        {/* Poster image shows until the inline clip starts (and stays if YouTube can't load). */}
         <div className="experience__media" data-reveal-image="">
           <img src={video.thumbnail} alt="" loading="lazy" width="670" height="629" data-parallax="8" />
-          <button className="experience__play" onClick={() => setVideoOpen(true)} aria-haspopup="dialog">
-            <YouTubePlay />
-            <span className="sr-only">Play video: {video.title}</span>
-          </button>
+          <InlineYouTube id={video.youtubeId} start={video.start} end={video.end} title={video.title} />
         </div>
       </div>
-      <VideoModal open={videoOpen} onClose={() => setVideoOpen(false)} youtubeId={video.youtubeId} title={video.title} />
     </section>
   );
 }

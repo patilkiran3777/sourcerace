@@ -312,9 +312,11 @@ export const experience = {
   cta: { label: 'Explore More', href: ROUTES.about },
   video: {
     thumbnail: img('experience/video-thumb'),
-    // Integration point: paste the YouTube video ID to enable playback.
-    youtubeId: '',
-    title: 'SourceTrace platform overview',
+    // https://www.youtube.com/watch?v=3V2oz7fhBG4 — clip plays 0:28 → 1:00 (seconds).
+    youtubeId: '3V2oz7fhBG4',
+    start: 28,
+    end: 60,
+    title: 'EUDR Compliance Explained | Traceability & Sustainable Supply Chains',
   },
 };
 
