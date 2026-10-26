@@ -13,14 +13,14 @@
 }
 .solutions__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; }
 .solutions__title { color: #fff; }
-.solutions__head .btn { margin-bottom: clamp(0px, 3vw, 64px); }
+.solutions__head .btn { margin-bottom: clamp(0px, 1.5vw, 28px); }
 
 .solutions__grid {
   --gap: clamp(16px, 1.46vw, 28px);
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(18px, 1.72vw, 33px) var(--gap);
-  margin-top: clamp(48px, 6.1vw, 118px);
+  margin-top: clamp(48px, 4.7vw, 90px);
 }
 .solution--lg { grid-column: span 2; }
 
@@ -28,11 +28,12 @@
   --mx: 50%; --my: 0%;
   position: relative;
   isolation: isolate;
-  display: flex; flex-direction: column; justify-content: flex-end;
+  display: flex; flex-direction: column;
   min-height: clamp(400px, 27.8vw, 533px);
   padding: clamp(24px, 1.77vw, 34px);
   border-radius: var(--r-card);
-  background: var(--c-dark-card);
+  /* near the section colour so the widget screenshots blend into the card */
+  background: linear-gradient(180deg, #212121 0%, #1c1c1c 100%);
   box-shadow: 0 3.44px 3.44px rgba(0, 0, 0, 0.25);
   overflow: hidden;
   transition: translate 0.6s var(--ease-out);
@@ -71,25 +72,26 @@
 .solution__media {
   position: absolute; z-index: -1;
   top: clamp(28px, 2.3vw, 44px); left: clamp(24px, 2.45vw, 47px); right: clamp(24px, 2.45vw, 47px);
-  height: 60%; overflow: hidden;
+  height: 58%; overflow: hidden;
 }
-.solution--lg .solution__media { left: clamp(20px, 1.67vw, 32px); right: clamp(20px, 1.67vw, 32px); height: 56%; }
+.solution--lg .solution__media { left: clamp(20px, 1.67vw, 32px); right: clamp(20px, 1.67vw, 32px); }
 .solution__media::after {
   content: ''; position: absolute; inset: -2px;
-  background: linear-gradient(180deg, rgba(23, 23, 23, 0.44) 10%, #171717 82%);
+  background: linear-gradient(180deg, rgba(31, 31, 31, 0.4) 0%, rgba(30, 30, 30, 0.6) 45%, #1e1e1e 94%);
 }
 .solution__media img {
-  width: 100%; height: 115%; object-fit: cover; object-position: top center;
+  /* show the whole widget frame at full width; the bottom fades into the card */
+  display: block; width: 100%; height: auto;
   filter: saturate(0.8) brightness(0.9); transition: filter 0.8s var(--ease-out);
 }
-.solution--lg .solution__media img { object-fit: cover; object-position: top left; }
 
-.solution__body { position: relative; z-index: 1; }
+/* fixed offset (not bottom-aligned) so titles in a row line up, as in the design */
+.solution__body { position: relative; z-index: 1; margin-top: clamp(200px, 15.7vw, 302px); }
 .solution__title {
   font-family: var(--ff-display); font-weight: 400; font-size: var(--fs-card-title); line-height: 1.48;
-  color: var(--c-heading-dark); max-width: 22ch; transition: color 0.6s var(--ease-out);
+  color: var(--c-heading-dark); max-width: 22ch; white-space: pre-line; transition: color 0.6s var(--ease-out);
 }
-.solution--lg .solution__title { max-width: 36ch; }
+.solution--lg .solution__title { max-width: none; }
 .solution__text {
   margin-top: clamp(12px, 0.9vw, 17px); font-size: var(--fs-body); line-height: 1.47; letter-spacing: -0.02em;
   color: var(--c-body-dark); max-width: 437px;

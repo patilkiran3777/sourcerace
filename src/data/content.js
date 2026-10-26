@@ -225,12 +225,13 @@ export const solutions = {
     },
     {
       id: 'fieldminder', size: 'lg', image: img('solutions/fieldminder'),
-      title: 'Introducing The Various Features Of The FieldMinder Applications',
+      // `\n` = line break from the design (rendered via white-space: pre-line).
+      title: 'Introducing The Various Features Of The FieldMinder\nApplications',
       text: 'Discover our powerful features to boost your farmland',
     },
-    { id: 'analysis', size: 'sm', image: img('solutions/npk-widget'), title: 'Analysis & Health Prediction', text: 'Early detection of soil and crop conditions using AI' },
-    { id: 'sensors', size: 'sm', image: img('solutions/npk-widget'), title: 'Sensor Device Integration', text: 'Connect with IoT devices to collect live data' },
-    { id: 'dataviz', size: 'sm', image: img('solutions/npk-widget'), title: 'Data Visualization', text: 'Dashboard that displays interactive graphs and maps' },
+    { id: 'analysis', size: 'sm', image: img('solutions/npk-widget'), title: 'Analysis & Health\nPrediction', text: 'Early detection of soil and crop conditions using AI' },
+    { id: 'sensors', size: 'sm', image: img('solutions/npk-widget'), title: 'Sensor Device\nIntegration', text: 'Connect with IoT devices to collect live data' },
+    { id: 'dataviz', size: 'sm', image: img('solutions/npk-widget'), title: 'Data\nVisualization', text: 'Dashboard that displays interactive graphs and maps' },
   ],
 };
 
@@ -318,6 +319,42 @@ export const caseStudies = {
       logo: img('cases/cargill'), logoAlt: 'Cargill',
       href: `${ROUTES.caseStudies}/cargill-cocoa`,
     },
+    // Items below copied from https://sourcetrace.com/case-studies/ (26 Oct 2026).
+    {
+      id: 'chetna',
+      title: 'Chetna Organic Agriculture Producer Company – India',
+      text: 'Chetna Organic Agriculture Producer Company was established with the primary aim of enhancing the livelihood of tribal smallholder farmers dependent on rain-fed agriculture through making their farming systems more profitable and sustainable.',
+      logo: img('logos/chetna-organic'), logoAlt: 'Chetna Organic',
+      href: `${ROUTES.caseStudies}/chetna-organic`,
+    },
+    {
+      id: 'goldtree',
+      title: 'Goldtree (S.L) Limited',
+      text: 'If Sierra Leone is now a leading producer of palm oil, it is because the oil palm grows abundantly in the tropical climate of West Africa. And yet, despite its 24,000 hectares of oil palm and 185,000 farmers owning palms.',
+      logo: img('logos/goldtree'), logoAlt: 'Goldtree',
+      href: `${ROUTES.caseStudies}/goldtree`,
+    },
+    {
+      id: 'nei',
+      title: 'Natural Extracts Industries Ltd.',
+      text: 'The Natural Extracts Industries (NEI) has its headquarters at the picturesque foothills of Mount Kilimanjaro! You can smell the raw earth here, as fresh ingredients are processed using modern eco-friendly methods.',
+      logo: img('logos/nei'), logoAlt: 'Natural Extracts Industries',
+      href: `${ROUTES.caseStudies}/natural-extracts-industries`,
+    },
+    {
+      id: 'fruitmaster',
+      title: 'Fruitmaster',
+      text: 'Fruitmaster AgroFresh Pvt.Ltd operates out of Kashmir, and is a joint enterprise engaged not only with the cultivation of apples, but also in its grading, packing, storing, transport and marketing – in effect, they manage the entire supply chain from orchard to market.',
+      logo: img('testimonials/fruitmaster'), logoAlt: 'Fruitmaster',
+      href: `${ROUTES.caseStudies}/fruitmaster`,
+    },
+    {
+      id: 'tnpl',
+      title: 'Tamil Nadu Newsprint and Paper Ltd (TNPL)',
+      text: 'TNPL is the largest paper mill in Tamil Nadu with a turnover of more than 2000 crores. The plantation division of TNPL supplies 35 per cent of their total raw material requirement of 0.5 million tonnes of pulp wood annually.',
+      logo: img('logos/tnpl'), logoAlt: 'TNPL',
+      href: `${ROUTES.caseStudies}/tnpl`,
+    },
   ],
 };
 
@@ -330,11 +367,42 @@ export const testimonials = {
       role: 'Sustainable Value Chain Manager, Cargill Cocoa & Chocolate, Netherlands',
       logo: img('logos/cargill'), logoAlt: 'Cargill',
     },
+    // Remaining quotes copied from the https://sourcetrace.com/ homepage (26 Oct 2026), in its order.
+    {
+      quote: 'SourceTrace’s platform helped us digitize the end-to-end value chain all the way from farm to the brands taking possession of the bales. Chetna could distinguish itself in the market and gained customer loyalty and premium pricing in a sustainable manner.',
+      name: 'Nanda Kumar',
+      role: 'COO, Chetna Organic Agriculture Producer Company Ltd., India',
+      logo: img('logos/chetna-organic'), logoAlt: 'Chetna Organic',
+    },
+    {
+      quote: 'USAID-AIN project implemented by WorldFish is proud to introduce e-traceability on a pilot scale into Bangladesh using SourceTrace applications.',
+      name: 'Hendrik Jan (Erik) Keus',
+      role: 'Chief of Party, WorldFish, Bangladesh',
+      logo: img('logos/worldfish'), logoAlt: 'WorldFish',
+    },
+    {
+      quote: 'We have been working with Sourcetrace for almost 4 years. The team has a very good understanding of the agriculture sector along with technical expertise in software development. We really appreciate the fact that they are open to new ideas and they are able to implement them in a time-bound manner.',
+      name: 'Litul Baruah',
+      role: 'Programme & Analytics Specialist, Laudes Foundation, India',
+      logo: img('logos/laudes-foundation'), logoAlt: 'Laudes Foundation',
+    },
     {
       quote: 'SourceTrace solutions played an instrumental role in real time monitoring of JIBIKA project to develop Village Development Entrepreneurs in agriculture sub sectors such as vegetables, goat rearing, beef fattening and duck rearing and establishing the end-to-end value chain.',
       name: 'ASM Sofrul Islam',
       role: 'Programme Coordinator, BRAC, Bangladesh',
       logo: img('testimonials/brac'), logoAlt: 'BRAC',
+    },
+    {
+      quote: 'The monitoring of field staff, the efficiency of the mappings, the ease of retrieving loans on soft copy, have all become efficient. We now have a fully digitised system with total ease of monitoring.',
+      name: 'Mathias Vansteenkiste',
+      role: 'ICS Manager, Goldtree, Sierra Leone',
+      logo: img('logos/goldtree'), logoAlt: 'Goldtree',
+    },
+    {
+      quote: 'SourceTrace solutions are a one-stop destination for all of NEI’s supply chain management information systems, monitoring and evaluation, procurement and payment tracking, organic certification, as well as scheduling of training programmes. Achieving our high standards has become possible with this solution that is simple and user-friendly, robust and seamlessly fulfills all our farmer management-related requirements.',
+      name: 'Juan Guardado',
+      role: 'Managing Director, Natural Extracts Industries Ltd, Tanzania',
+      logo: img('logos/nei'), logoAlt: 'Natural Extracts Industries',
     },
     {
       quote: 'It Doesn’t Matter Whether We Are Dealing With A Single Orchard Or Hundreds Of Them, Data Is Required At Every Step – To Make Policy Decisions, To Integrate With Banks, To Provide Feedback And Explanations To The Farmers, Or To Share With Government Agencies. We Need Numbers, Which We Did Not Have Till Date',
@@ -343,12 +411,23 @@ export const testimonials = {
       logo: img('testimonials/fruitmaster'), logoAlt: 'Fruitmaster',
     },
     {
-      // The 4th Figma card duplicates Uzair Javeed; replaced with a placeholder.
-      quote: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
-      name: 'Lorem Ipsum',
-      role: 'Placeholder Title, Company Name, Country',
-      logo: img('logos/sfach'), logoAlt: 'Placeholder logo',
-      placeholder: true,
+      quote: 'The major benefit of the software is traceability, estimates of production for planning the marketing of produce.',
+      name: 'Banshi Katkar',
+      role: 'Project Head, Krishi Pragati Foundation, India',
+      // No .webp tooling was available; the live site's JPG is used as-is.
+      logo: asset('/images/testimonials/kpf.jpg'), logoAlt: 'Krishi Pragati Foundation',
+    },
+    {
+      quote: 'The solution has been able to solve the challenges in collecting critical research data, particularly from remote farm level with its team of a limited number of scientists.',
+      name: 'Dr. Md. Azharul Islam',
+      role: 'Chief Scientific Officer, Dairy Development Research Project (DDRP), Bangladesh Livestock Research Institute, Bangladesh',
+      logo: asset('/images/testimonials/blri.jpg'), logoAlt: 'Bangladesh Livestock Research Institute',
+    },
+    {
+      quote: 'The SourceTrace platform will help us provide speedy and easy access to horticulture service, leading to better quality of life for farmers in the State.',
+      name: 'Dr. Arjun Saini',
+      role: 'Managing Director, Small Farmers Agri Business Consortium, Haryana, India',
+      logo: img('logos/sfach'), logoAlt: 'SFACH',
     },
   ],
 };
