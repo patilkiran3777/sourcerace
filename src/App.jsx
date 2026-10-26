@@ -3,12 +3,18 @@ import Footer from './components/layout/Footer.jsx';
 import MeetingTab from './components/layout/MeetingTab.jsx';
 import Home from './pages/Home.jsx';
 import AgricultureSolutions from './pages/AgricultureSolutions.jsx';
+import AgricultureOption2 from './pages/AgricultureOption2.jsx';
 import { currentPath } from './router.js';
 import { useEffect } from 'react';
 import { initSmoothScroll } from './animations/smoothScroll.js';
 
 /* Path → page. Unknown paths fall back to the homepage. */
-const PAGES = { '/agriculture-solutions': AgricultureSolutions };
+const PAGES = {
+  // Option 2 (light editorial) is the chosen design; the original stays reachable as option-1.
+  '/agriculture-solutions': AgricultureOption2,
+  '/agriculture-solutions/option-1': AgricultureSolutions,
+  '/agriculture-solutions/option-2': AgricultureOption2,
+};
 
 export default function App() {
   const Page = PAGES[currentPath()] || Home;
