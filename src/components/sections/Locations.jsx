@@ -1,21 +1,31 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { ComposableMap, Geographies, Geography, Marker, ZoomableGroup } from 'react-simple-maps';
-import { AE, BD, CA, ET, IN, KE, NL, NP, TH, UG, US, ZW } from 'country-flag-icons/react/3x2';
+import { AE, BD, CA, ET, IN, KE, NL, NP, SL, TH, TZ, UG, US, ZW } from 'country-flag-icons/react/3x2';
 import { ArrowUpRight, Minus, Plus, RotateCcw } from 'lucide-react';
-import world from 'world-atlas/countries-110m.json';
 import { locations } from '../../data/content.js';
+import { COUNTRIES, MAP_HEIGHT, MAP_WIDTH, project } from '../../data/worldMap.js';
 import SplitText from '../ui/SplitText.jsx';
 import useSectionReveal from '../../hooks/useSectionReveal.js';
 import { gsap, MQ } from '../../animations/gsapConfig.js';
 import '../../styles/sections/locations.css';
 
-const FLAGS = { AE, BD, CA, ET, IN, KE, NL, NP, TH, UG, US, ZW };
-const ANTARCTICA = '010';
-const HOME = { coordinates: [12, 10], zoom: 1 };
+const FLAGS = { AE, BD, CA, ET, IN, KE, NL, NP, SL, TH, TZ, UG, US, ZW };
+const HOME = { cx: MAP_WIDTH / 2, cy: MAP_HEIGHT / 2, zoom: 1 };
+const MAX_ZOOM = 6;
+
+/* Keep the visible window inside the map. */
+const clampView = ({ cx, cy, zoom }) => {
+  const w = MAP_WIDTH / zoom, h = MAP_HEIGHT / zoom;
+  return {
+    zoom,
+    cx: Math.min(MAP_WIDTH - w / 2, Math.max(w / 2, cx)),
+    cy: Math.min(MAP_HEIGHT - h / 2, Math.max(h / 2, cy)),
+  };
+};
 
 const TABS = [
   { id: 'offices', label: 'Regional Offices', items: locations.offices },
-  { id: 'partners', label: 'Regional Partners', items: locations.partners },
+  { id: 'partners', label: 'Global Partner', items: locations.partners, hint: 'global partners worldwide' },
+  { id: 'countries', label: 'Countries Served', items: locations.countries, hint: 'countries served' },
 ];
 
 const Flag = ({ code }) => {
@@ -29,12 +39,14 @@ export default function Locations() {
   const [mode, setMode] = useState('offices');
   const [hovered, setHovered] = useState(null);
   const [view, setView] = useState(HOME);
-  const zoomRef = useRef(1);
+  const svgRef = useRef(null);
+  const drag = useRef(null);
   const first = useRef(true);
   const tabsRef = useRef(null);
 
   const tab = TABS.find((t) => t.id === mode);
   const isOffice = mode === 'offices';
+  const look = isOffice ? 'offices' : 'partners'; // Countries Served reuses the compact partner list/pins
   const byIso = useMemo(() => Object.fromEntries(tab.items.map((l) => [l.iso, l])), [tab]);
   const hotLoc = tab.items.find((l) => l.id === hovered);
 
@@ -76,10 +88,28 @@ export default function Locations() {
     return () => { cancelAnimationFrame(raf); ro.disconnect(); };
   }, [mode]);
 
-  const zoomBy = (f) => setView((v) => ({ ...v, zoom: Math.min(6, Math.max(1, v.zoom * f)) }));
-  // Wheel never hijacks page scroll; touch-drag only pans once zoomed in.
-  const filterZoom = (e) => e.type !== 'wheel' && !(e.type.startsWith('touch') && zoomRef.current <= 1);
+  const zoomBy = (f) => setView((v) => clampView({ ...v, zoom: Math.min(MAX_ZOOM, Math.max(1, v.zoom * f)) }));
   const k = 1 / view.zoom;
+  const vw = MAP_WIDTH * k, vh = MAP_HEIGHT * k;
+
+  // Drag to pan once zoomed in (at 100% the whole map is visible, so touch keeps scrolling the page).
+  const onPointerDown = (e) => {
+    if (view.zoom <= 1) return;
+    drag.current = { x: e.clientX, y: e.clientY, view, moved: false };
+    e.currentTarget.setPointerCapture(e.pointerId);
+  };
+  const onPointerMove = (e) => {
+    const d = drag.current;
+    if (!d) return;
+    const scale = vw / svgRef.current.getBoundingClientRect().width;
+    const dx = (e.clientX - d.x) * scale, dy = (e.clientY - d.y) * scale;
+    if (Math.abs(dx) + Math.abs(dy) > 2 * scale) d.moved = true;
+    setView(clampView({ ...d.view, cx: d.view.cx - dx, cy: d.view.cy - dy }));
+  };
+  const endDrag = () => { setTimeout(() => { drag.current = null; }, 0); };
+  // A drag that ends over an office must not navigate to it.
+  const open = (href) => { if (!drag.current?.moved) go(href); };
+  const at = (l) => project(l.coords);
 
   return (
     <section className="loc" ref={ref} aria-labelledby="loc-title">
@@ -104,7 +134,7 @@ export default function Locations() {
 
         <div className="loc__grid">
           <div className="loc__panel" id="loc-panel" role="tabpanel" aria-labelledby={`loc-tab-${mode}`}>
-            <ul className={`loc__list loc__list--${mode}`}>
+            <ul className={`loc__list loc__list--${look}`}>
               {tab.items.map((l) => {
                 const props = {
                   className: `loc__item ${hovered === l.id ? 'is-hot' : ''}`,
@@ -135,64 +165,58 @@ export default function Locations() {
           </div>
 
           <div className="loc__map-card">
-            <ComposableMap
-              className="loc__svg" projection="geoEqualEarth" width={800} height={420}
-              projectionConfig={{ scale: 158 }} role="img"
+            <svg
+              ref={svgRef}
+              className={`loc__svg ${view.zoom > 1 ? 'is-zoomed' : ''}`}
+              viewBox={`${view.cx - vw / 2} ${view.cy - vh / 2} ${vw} ${vh}`}
+              role="img"
               aria-label={`World map highlighting ${tab.items.map((l) => l.name).join(', ')}`}
+              onPointerDown={onPointerDown} onPointerMove={onPointerMove}
+              onPointerUp={endDrag} onPointerCancel={endDrag}
             >
-              <ZoomableGroup
-                center={view.coordinates} zoom={view.zoom} minZoom={1} maxZoom={6}
-                filterZoomEvent={filterZoom}
-                onMove={({ zoom }) => { zoomRef.current = zoom; }}
-                onMoveEnd={({ coordinates, zoom }) => { zoomRef.current = zoom; setView({ coordinates, zoom }); }}
-              >
-                <Geographies geography={world}>
-                  {({ geographies }) => geographies.filter((g) => g.id !== ANTARCTICA).map((geo) => {
-                    const loc = byIso[geo.id];
-                    const dim = loc && hovered && hovered !== loc.id;
-                    const fill = loc ? loc.color : undefined;
-                    const style = { outline: 'none', ...(fill && { fill }) };
-                    return (
-                      <Geography
-                        key={geo.rsmKey} geography={geo}
-                        className={`loc__geo ${loc ? 'is-on' : ''} ${dim ? 'is-dim' : ''} ${loc && isOffice ? 'is-link' : ''}`}
-                        style={{ default: style, hover: style, pressed: style }}
-                        tabIndex={-1}
-                        onMouseEnter={loc ? () => setHovered(loc.id) : undefined}
-                        onMouseLeave={loc ? () => setHovered(null) : undefined}
-                        onClick={loc && isOffice ? () => go(loc.href) : undefined}
-                      />
-                    );
-                  })}
-                </Geographies>
+              {COUNTRIES.map((c, i) => {
+                const loc = c.iso && byIso[c.iso];
+                const dim = loc && hovered && hovered !== loc.id;
+                return (
+                  <path
+                    key={i} d={c.d}
+                    className={`loc__geo ${loc ? 'is-on' : ''} ${dim ? 'is-dim' : ''} ${loc && isOffice ? 'is-link' : ''}`}
+                    style={loc ? { fill: loc.color } : undefined}
+                    onMouseEnter={loc ? () => setHovered(loc.id) : undefined}
+                    onMouseLeave={loc ? () => setHovered(null) : undefined}
+                    onClick={loc && isOffice ? () => open(loc.href) : undefined}
+                  />
+                );
+              })}
 
-                {tab.items.map((l) => (
-                  <Marker key={l.id} coordinates={l.coords}>
-                    {/* Outer g keeps pins a constant size at any zoom; GSAP animates the inner one. */}
-                    <g transform={`scale(${k})`}>
-                      <g
-                        className={`loc__pin loc__pin--${mode} ${hovered === l.id ? 'is-hot' : ''}`}
-                        style={{ '--loc': l.color }}
-                        onMouseEnter={() => setHovered(l.id)} onMouseLeave={() => setHovered(null)}
-                        onClick={isOffice ? () => go(l.href) : undefined}
-                      >
-                        {isOffice && <circle className="loc__pulse" r={6} />}
-                        <circle className="loc__dot" r={isOffice ? 6 : 4} />
-                      </g>
+              {tab.items.map((l) => {
+                const [x, y] = at(l);
+                return (
+                  /* Outer g keeps pins a constant size at any zoom; GSAP animates the inner one. */
+                  <g key={l.id} transform={`translate(${x} ${y}) scale(${k})`}>
+                    <g
+                      className={`loc__pin loc__pin--${look} ${hovered === l.id ? 'is-hot' : ''}`}
+                      style={{ '--loc': l.color }}
+                      onMouseEnter={() => setHovered(l.id)} onMouseLeave={() => setHovered(null)}
+                      onClick={isOffice ? () => open(l.href) : undefined}
+                    >
+                      {isOffice && <circle className="loc__pulse" r={6} />}
+                      <circle className="loc__dot" r={isOffice ? 6 : 4} />
                     </g>
-                  </Marker>
-                ))}
+                  </g>
+                );
+              })}
 
-                {hotLoc && (
-                  <Marker coordinates={hotLoc.coords}>
-                    <g className="loc__tip" transform={`scale(${k})`} pointerEvents="none" aria-hidden="true">
-                      <rect x={-(hotLoc.name.length * 4 + 16)} y={-40} width={hotLoc.name.length * 8 + 32} height={26} rx={13} />
-                      <text y={-22.5} textAnchor="middle">{hotLoc.name}</text>
-                    </g>
-                  </Marker>
-                )}
-              </ZoomableGroup>
-            </ComposableMap>
+              {hotLoc && (() => {
+                const [x, y] = at(hotLoc);
+                return (
+                  <g className="loc__tip" transform={`translate(${x} ${y}) scale(${k})`} pointerEvents="none" aria-hidden="true">
+                    <rect x={-(hotLoc.name.length * 4 + 16)} y={-40} width={hotLoc.name.length * 8 + 32} height={26} rx={13} />
+                    <text y={-22.5} textAnchor="middle">{hotLoc.name}</text>
+                  </g>
+                );
+              })()}
+            </svg>
 
             <div className="loc__zoom" role="group" aria-label="Map zoom">
               <button type="button" onClick={() => zoomBy(1.6)} aria-label="Zoom in"><Plus size={18} /></button>
@@ -200,7 +224,7 @@ export default function Locations() {
               <button type="button" onClick={() => setView(HOME)} aria-label="Reset map"><RotateCcw size={16} /></button>
             </div>
             <p className="loc__hint" aria-hidden="true">
-              {isOffice ? 'Click an office to view its location' : `${tab.items.length} regional partners worldwide`}
+              {isOffice ? 'Click an office to view its location' : `${tab.items.length} ${tab.hint}`}
             </p>
           </div>
         </div>      </div>

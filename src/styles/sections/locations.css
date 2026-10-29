@@ -61,8 +61,10 @@
 
 /* Map */
 .loc__map-card { position: relative; overflow: hidden; }
-.loc__svg { display: block; width: 100%; height: auto; }
-.loc__geo { fill: #dfe7d0; stroke: #fff; stroke-width: 0.5; transition: fill 0.6s var(--ease-out), opacity 0.35s; }
+.loc__svg { display: block; width: 100%; height: auto; touch-action: pan-y; user-select: none; }
+.loc__svg.is-zoomed { cursor: grab; touch-action: none; }
+.loc__svg.is-zoomed:active { cursor: grabbing; }
+.loc__geo { fill: #dfe7d0; stroke: #fff; stroke-width: 0.5; stroke-linejoin: round; vector-effect: non-scaling-stroke; transition: fill 0.6s var(--ease-out), opacity 0.35s; }
 .loc__geo.is-on { stroke-width: 0.8; }
 .loc__geo.is-dim { opacity: 0.4; }
 .loc__geo.is-link, .loc__pin--offices { cursor: pointer; }

@@ -87,6 +87,7 @@ export const navigation = [
       { label: 'About', href: '/about' },
       { label: 'Careers', href: '/careers' },
       { label: 'Contact', href: '/contact' },
+      { label: 'Leadership', href: '/leadership' },
     ],
   },
   { label: 'Global Partners', href: '/global-partners' },
@@ -127,7 +128,7 @@ export const stats = [
   { id: 'social', variant: 'social', height: 'md', image: img('stats/social'), title: 'Connect With Us On Social Media' },
   {
     id: 'hectares', variant: 'photo-fade', height: 'lg', image: img('stats/hectares'),
-    count: 3, suffix: ' Million', label: 'Hectares of land managed',
+    count: 3, suffix: ' Million+', label: 'Hectares of land managed',
     text: LOREM_SHORT, placeholder: true,
   },
   {
@@ -273,7 +274,7 @@ const PLACEHOLDER_CONTACT = {
   placeholder: true,
 };
 
-/* Map data: `iso` is the ISO 3166-1 numeric id used by world-atlas, `flag` the
+/* Map data: `iso` is the ISO 3166-1 numeric id tagged on the country outlines in worldMap.js, `flag` the
    alpha-2 code for country-flag-icons, `coords` [lon, lat] for the map pin.
    Every location has its own colour: offices in green shades, partners in a
    separate non-green palette, so a country never reads the same in both views. */
@@ -301,6 +302,24 @@ export const locations = {
     { id: 'nepal', name: 'Nepal', iso: '524', flag: 'NP', coords: [84, 28.3], color: '#c2410c' },
     { id: 'uganda', name: 'Uganda', iso: '800', flag: 'UG', coords: [32.3, 1.4], color: '#b5468a' },
     { id: 'zimbabwe', name: 'Zimbabwe', iso: '716', flag: 'ZW', coords: [29.8, -19], color: '#a47148' },
+  ],
+  // PLACEHOLDER: the live site says "37 countries" but doesn't name them. These are the
+  // countries already known from offices, partners and the live homepage; replace with the full list.
+  countries: [
+    { id: 'c-usa', name: 'USA', iso: '840', flag: 'US', coords: [-98, 39], color: '#1e6b34' },
+    { id: 'c-canada', name: 'Canada', iso: '124', flag: 'CA', coords: [-106, 56], color: '#2f8f4e' },
+    { id: 'c-netherlands', name: 'The Netherlands', iso: '528', flag: 'NL', coords: [5.3, 52.1], color: '#3aa35a' },
+    { id: 'c-sierra-leone', name: 'Sierra Leone', iso: '694', flag: 'SL', coords: [-11.8, 8.5], color: '#4fb86b' },
+    { id: 'c-ethiopia', name: 'Ethiopia', iso: '231', flag: 'ET', coords: [39.5, 9], color: '#2fa58a' },
+    { id: 'c-kenya', name: 'Kenya', iso: '404', flag: 'KE', coords: [37.9, 0.2], color: '#1f8a70' },
+    { id: 'c-uganda', name: 'Uganda', iso: '800', flag: 'UG', coords: [32.3, 1.4], color: '#5cc08f' },
+    { id: 'c-tanzania', name: 'Tanzania', iso: '834', flag: 'TZ', coords: [34.9, -6.4], color: '#239b7a' },
+    { id: 'c-zimbabwe', name: 'Zimbabwe', iso: '716', flag: 'ZW', coords: [29.8, -19], color: '#6ea83a' },
+    { id: 'c-uae', name: 'UAE', iso: '784', flag: 'AE', coords: [54.4, 24.2], color: '#98b81d' },
+    { id: 'c-india', name: 'India', iso: '356', flag: 'IN', coords: [78.9, 21], color: '#37c737' },
+    { id: 'c-nepal', name: 'Nepal', iso: '524', flag: 'NP', coords: [84, 28.3], color: '#7fb446' },
+    { id: 'c-bangladesh', name: 'Bangladesh', iso: '050', flag: 'BD', coords: [90.3, 23.7], color: '#2c7d3f' },
+    { id: 'c-thailand', name: 'Thailand', iso: '764', flag: 'TH', coords: [101, 15], color: '#48a868' },
   ],
 };
 

@@ -79,18 +79,8 @@ export default function O2Modules() {
   const ref = useSectionReveal((root) => {
     const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { threshold: 0.25 });
     io.observe(root.querySelector('.o2m-show'));
+    // No scroll-in reveal here: the rail, tabs and device stage are shown as-is (client request).
     const mm = gsap.matchMedia();
-
-    mm.add(MQ.motion, () => {
-      const tl = gsap.timeline({ scrollTrigger: { trigger: root.querySelector('.o2m-pin'), start: 'top 75%', once: true } });
-      tl.from(root.querySelectorAll('.o2m-stage-btn'), { y: 20, autoAlpha: 0, duration: 0.8, stagger: 0.08, ease: 'expo.out' })
-        .from(root.querySelector('.o2m-rail__track'), { scaleX: 0, transformOrigin: 'left center', duration: 1.2, ease: 'power2.inOut' }, 0.1)
-        .from(root.querySelectorAll('.o2m-tabs > *'), { y: 14, autoAlpha: 0, duration: 0.6, stagger: 0.04 }, 0.3)
-        .from(root.querySelectorAll('.o2m-detail [data-anim]'), { y: 30, autoAlpha: 0, duration: 0.9, stagger: 0.07, ease: 'expo.out' }, 0.3)
-        .from(root.querySelector('.o2d'), { y: 80, autoAlpha: 0, duration: 1.2, ease: 'expo.out' }, 0.35)
-        .from(root.querySelector('.o2p'), { y: 120, autoAlpha: 0, duration: 1.2, ease: 'expo.out' }, 0.5)
-        .from(root.querySelectorAll('.o2m-chip'), { scale: 0.8, autoAlpha: 0, duration: 0.8, stagger: 0.15, ease: 'back.out(1.7)' }, 0.9);
-    });
 
     // Scroll-driven: pin the rail + showcase and let scroll step through all modules.
     mm.add(MQ_PIN, () => {
